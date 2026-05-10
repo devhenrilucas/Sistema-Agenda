@@ -14,12 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 
-/**
- * Classe TelaLogin para criar uma tela de login de biblioteca usando JavaFX.
- * Esta classe é projetada para ser simples e bem comentada, ideal para estudantes aprendendo JavaFX.
- * Ela retorna uma Scene pronta para ser usada no Stage principal.
- */
-public class TelaLogin {
+public class CustomerRegistrationView {
 
     private TextField tfUsuario;  // Campo para o nome de usuário
     private TextField pfEmail;
