@@ -29,7 +29,7 @@ public void insert(User obj) {
   PreparedStatement st = null;
 
   try {
-   st = conn.prepareStatement("INSERT INTO Pessoa " + " (Name, Email, Telefone ) " + " VALUES" + " (?, ?, ?)",
+   st = conn.prepareStatement("INSERT INTO Pessoa " + " (nome, email, telefone ) " + " VALUES" + " (?, ?, ?)",
      Statement.RETURN_GENERATED_KEYS);
 
    st.setString(1, obj.getName());
@@ -49,7 +49,7 @@ public void insert(User obj) {
 
   } catch (SQLException e) {
 
-   throw new DbException("Erro ao inserir uma pessoa");
+   throw new DbException(e.getMessage());
 
   } finally {
 
@@ -118,7 +118,7 @@ public User findById(Integer id) {
   try {
 
    st = conn.prepareStatement("SELECT * FROM Pessoa "
-     + "WHERE Id = ?");
+     + "WHERE id_pessoa = ?");
 
    st.setInt(1,  id);
 
@@ -177,10 +177,10 @@ public List<User> findAll() {
 public User instatiateUser(ResultSet rs){
   try {
    User user = new User();
-   user.setId(rs.getInt("Id"));
-   user.setName(rs.getString("Name"));
-   user.setEmail(rs.getString("Email"));
-   user.setPhone(rs.getString("Telefone"));
+   user.setId(rs.getInt("id_pessoa"));
+   user.setName(rs.getString("nome"));
+   user.setEmail(rs.getString("email"));
+   user.setPhone(rs.getString("telefone"));
    return user;
   } catch (SQLException e) {
    throw new DbException("Falha ao instanciar unma pessoa");

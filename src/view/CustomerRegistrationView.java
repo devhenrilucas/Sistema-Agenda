@@ -1,5 +1,7 @@
 package view;
 
+import dao.DaoFactory;
+import dao.UserDAO;
 import javafx.geometry.Insets;
 import javafx.scene.layout.GridPane;
 import javafx.geometry.Pos;
@@ -13,6 +15,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import model.entities.User;
 
 public class CustomerRegistrationView {
 
@@ -117,12 +120,16 @@ public class CustomerRegistrationView {
      * (Futuramente, aqui você pode conectar ao banco de dados)
      */
     private void handleLogin() {
+    	String usuario  = tfUsuario.getText().trim();
+        String email    = pfEmail.getText().trim();
+        String telefone = pfTelefone.getText().trim();
         lblErro.setText(""); // Limpa mensagem anterior
         if (validarCampos()) {
             lblErro.setTextFill(Color.GREEN);
-            lblErro.setText("Login realizado com sucesso! (Estrutura pronta para BD)");
-            // Aqui você pode adicionar lógica para navegar para a tela principal
-            // Exemplo: MainApp.mudarTelaPrincipal();
+            UserDAO userDao = DaoFactory.createUserDao();
+            User user = new User(null, usuario, email, telefone);
+            userDao.insert(user);
+            lblErro.setText("" + userDao.findById(user.getId()));
         } else {
             lblErro.setTextFill(Color.RED);
             lblErro.setText("Por favor, preencha todos os campos!");

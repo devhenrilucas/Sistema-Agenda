@@ -10,7 +10,7 @@ public class teste {
 	 UserDAO userDao = DaoFactory.createUserDao();
 	 System.out.println("oi");
 	 User user = new User(null, "papa", "a@g", "3");
-	 userDao.insert(user);
-	 System.out.println("deu certo!" + user.getId());
+	 
+	 System.out.println("deu certo!" + userDao.findById(1));
  }
 }

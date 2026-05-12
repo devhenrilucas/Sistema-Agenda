@@ -17,10 +17,10 @@ public class Principal extends Application{
 //        stage.setResizable(false);
 //        stage.show();
         
-        VenueRegistrationView venueRegistration = new VenueRegistrationView();
-        Scene scene = venueRegistration.getScene();
+    	CustomerRegistrationView customerRegistration = new CustomerRegistrationView();
+        Scene scene = customerRegistration.getScene();
 
-        stage.setTitle("Sistema de Biblioteca - Login");
+        stage.setTitle("Sistema de Biblioteca - Registro");
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
