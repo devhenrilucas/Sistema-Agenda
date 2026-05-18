@@ -1,6 +1,7 @@
 package view;
 
 import javafx.scene.Scene;
+import view.VenueRegistrationView;
 import javafx.stage.Stage;
 import view.CustomerRegistrationView;
 import javafx.application.Application;
@@ -17,7 +18,7 @@ public class Principal extends Application{
 //        stage.setResizable(false);
 //        stage.show();
         
-    	CustomerRegistrationView customerRegistration = new CustomerRegistrationView();
+    	VenueRegistrationView customerRegistration = new VenueRegistrationView();
         Scene scene = customerRegistration.getScene();
 
         stage.setTitle("Sistema de Biblioteca - Registro");

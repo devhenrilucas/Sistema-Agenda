@@ -10,9 +10,9 @@ import model.exception.DbException;
 
 public class DB {
 
-private static String server = "jdbc:sqlserver://10.109.8.9;";
+private static String server = "jdbc:sqlserver://127.0.0.1:1433;";
 private static String data = "databaseName=DA123_EXERC_G10;";
-private static String user = "user=DA123_EXERC_G10;password=;encrypt=false;trustServerCertificate=true;loginTimeout=30;";
+private static String user = "user=sa;password=Gdbv1840@;encrypt=false;trustServerCertificate=true;loginTimeout=30;";
 private static String url = server + data + user;
 
 private static Connection conn = null;

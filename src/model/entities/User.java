@@ -9,9 +9,6 @@ private String name;
 private String email;
 private String phone;
 
-
-
-
 public User() {}
 
 public User(Integer id, String name, String email, String phone) {

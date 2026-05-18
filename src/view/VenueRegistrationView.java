@@ -1,7 +1,11 @@
 package view;
 
+import dao.DaoFactory;
+import dao.VenueDAO;
 import javafx.geometry.Insets;
 import javafx.util.converter.IntegerStringConverter;
+import model.entities.User;
+import model.entities.Venue;
 import javafx.scene.layout.GridPane;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -17,8 +21,9 @@ import javafx.scene.text.FontWeight;
 
 
 public class VenueRegistrationView {
-	private TextField vanueName;
+	private TextField venueName;
 	private TextField maxCapacity;
+	private Label lblErro; 
 	
 	public Scene getScene() {
 		IntegerStringConverter converter = new IntegerStringConverter();
@@ -52,11 +57,11 @@ public class VenueRegistrationView {
         hboxVanue.setAlignment(Pos.CENTER_LEFT);
         Label lblVanue = new Label("Local:");
         lblVanue.setFont(Font.font(14));
-        vanueName = new TextField();
-        vanueName.setPrefWidth(250);
-        vanueName.setPromptText("Digite o nome do Local");
+        venueName = new TextField();
+        venueName.setPrefWidth(250);
+        venueName.setPromptText("Digite o nome do Local");
         grid.add(lblVanue, 0, 0);
-        grid.add(vanueName, 1, 0);
+        grid.add(venueName, 1, 0);
         
         HBox hboxMaxCapacity = new HBox(15);
         hboxMaxCapacity.setAlignment(Pos.CENTER_LEFT);
@@ -73,17 +78,48 @@ public class VenueRegistrationView {
         btnRegisterVenue.setPrefWidth(150);
         btnRegisterVenue.setFont(Font.font("Arial", FontWeight.BOLD, 14));
         btnRegisterVenue.setStyle("-fx-background-color: #4CAF50; -fx-text-fill: white; -fx-background-radius: 5; -fx-padding: 10 20;");
-        //btnRegisterVenue.setOnAction(e -> handleLogin());
+        btnRegisterVenue.setOnAction(e -> handleVenueLogOn());
+        
+        lblErro = new Label();
+        lblErro.setTextFill(Color.RED);
+        lblErro.setFont(Font.font(12));
+        lblErro.setStyle("-fx-padding: 10 0 0 0;");
         
         root.getChildren().addAll(
-                lblTitulo,
-                grid,
-                btnRegisterVenue
-            );
+            lblTitulo,
+            grid,
+            btnRegisterVenue,
+            lblErro
+        );
 
-            Scene scene = new Scene(root, 450, 350);
-            return scene;
-        
+        Scene scene = new Scene(root, 450, 350);
+        return scene;
+	}
+	
+	private boolean validarCampos() {
+        String name	= venueName.getText().trim();
+        String mCap	= maxCapacity.getText().trim();
+        return !name.isEmpty() && !mCap.isEmpty();
+    }
+	
+	private void handleVenueLogOn() {
+	    lblErro.setText("");
+	    if (validarCampos()) {
+	        String name = venueName.getText().trim();
+	        Integer mCap = Integer.parseInt(maxCapacity.getText().trim()); 
+	        
+	        lblErro.setTextFill(Color.GREEN);
+	        VenueDAO venueDao = DaoFactory.createVenueDAO();
+	        Venue venue = new Venue(null, name, mCap);
+	        
+	        venueDao.insert(venue);
+	        lblErro.setText("" + venueDao.findById(venue.getId()));
+	        
+	    } else {
+	        lblErro.setTextFill(Color.RED);
+	        lblErro.setText("Por favor, preencha todos os campos!");
+	        venueName.requestFocus();
+	    }
 	}
 	
 
